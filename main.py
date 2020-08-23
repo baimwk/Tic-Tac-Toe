@@ -1,7 +1,6 @@
 import math
 
-#
-field = list(input("Enter cells:"))
+field = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
 matrix = []
 
@@ -43,31 +42,36 @@ for i in range(3):
 
 print_matrix()
 
+cnt = 0
+
 while True:
-    a, b = list(input("Enter the coordinates:").split(' '))
-    numbers = ['1', '2', '3']
-    if (a or b) not in numbers and a.isdigit() and b.isdigit():
-        print('Coordinates should be from 1 to 3!')
-    elif not a.isdigit() or not b.isdigit():
-        print("You should enter numbers!")
-    elif a in numbers and b in numbers:
-        c = matrix[3-int(b)][int(a)-1]
-        if c == 'X' or c == 'O':
-            print("This cell is occupied! Choose another one!")
-        else:
-            matrix[3-int(b)][int(a)-1] = 'X'
-            print_matrix()
+    cnt += 1
+    if cnt % 2 == 1:
+        letter = 'X'
+    else:
+        letter = 'O'
+    if cnt <= 10:
+        a, b = list(input("Enter the coordinates:").split(' '))
+        numbers = ['1', '2', '3']
+        if (a or b) not in numbers and a.isdigit() and b.isdigit():
+            print('Coordinates should be from 1 to 3!')
+        elif not a.isdigit() or not b.isdigit():
+            print("You should enter numbers!")
+        elif a in numbers and b in numbers:
+            c = matrix[3-int(b)][int(a)-1]
+            if c == 'X' or c == 'O':
+                print("This cell is occupied! Choose another one!")
+            else:
+                matrix[3-int(b)][int(a)-1] = letter
+                print_matrix()
+        if is_winner('X') is True and is_winner('O') is False:
+            print("X wins")
+            break
+        elif is_winner('O') is True and is_winner('X') is False:
+            print("O wins")
+            break
+        elif cnt == 10:
+            print("Draw")
             break
     else:
         break
-# if (is_winner('X') is True and is_winner('O') is True) or (math.fabs(count_x - count_o) >= 2):
-#     print("Impossible")
-# elif is_winner('X') is True and is_winner('O') is False:
-#     print("X wins")
-# elif is_winner('O') is True and is_winner('X') is False:
-#     print("O wins")
-# elif is_winner('X') is False and is_winner('O') is False and (count_x + count_o) < 9:
-#     print("Game not finished")
-# else:
-#     print("Draw")
-#
